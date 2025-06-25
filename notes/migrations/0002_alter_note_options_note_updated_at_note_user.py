@@ -5,6 +5,26 @@ from django.conf import settings
 from django.db import migrations, models
 
 
+def create_default_user(apps, schema_editor):
+    """Create a default user if none exists"""
+    User = apps.get_model('auth', 'User')
+    if not User.objects.filter(id=1).exists():
+        User.objects.create_user(
+            id=1,
+            username='admin',
+            email='admin@example.com',
+            password='admin123',
+            is_staff=True,
+            is_superuser=True
+        )
+
+
+def reverse_create_default_user(apps, schema_editor):
+    """Remove the default user"""
+    User = apps.get_model('auth', 'User')
+    User.objects.filter(id=1).delete()
+
+
 class Migration(migrations.Migration):
 
     dependencies = [
@@ -13,6 +33,7 @@ class Migration(migrations.Migration):
     ]
 
     operations = [
+        migrations.RunPython(create_default_user, reverse_create_default_user),
         migrations.AlterModelOptions(
             name='note',
             options={'ordering': ['-created_at']},
