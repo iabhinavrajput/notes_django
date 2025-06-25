@@ -83,3 +83,10 @@ def login_view(request):
     else:
         form = AuthenticationForm()
     return render(request, 'notes/login.html', {'form': form})
+
+
+
+
+def logout_view(request):
+    messages.info(request, 'You have successfully logged out.')
+    return redirect('login')
