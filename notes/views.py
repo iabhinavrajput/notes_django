@@ -32,5 +32,5 @@ def delete_note(request, note_id):
     note = get_object_or_404(Note, id=note_id)
     if request.method == 'POST':
         note.delete()
-        return(redirect, 'home')
+        return redirect('home')
     return render(request, 'notes/delete_note.html', {'note': note})
