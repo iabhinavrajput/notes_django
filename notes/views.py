@@ -29,7 +29,7 @@ def edit_notes(request, note_id):
     return render(request, 'notes/edit_note.html', {'form': form, 'note': note})
 
 def delete_note(request, note_id):
-    note = get_object_or_404(request, id=note_id)
+    note = get_object_or_404(Note, id=note_id)
     if request.method == 'POST':
         note.delete()
         return(redirect, 'home')

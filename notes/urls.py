@@ -1,7 +1,7 @@
 from django.urls import path
-from .views import views
+from . import views
 
-urlPatterns = [
+urlpatterns = [
     path('', views.home, name='home'),
     path('add/', views.add_note, name='add-note'),
     path('edit/<int:note_id>/', views.edit_notes, name='edit-note'),
